@@ -21,17 +21,27 @@ public class Main {
 
         char[][] matrix = parseMatrix(lines);
 
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                if (matrix[row][col] == '@') {
-                    int count = checkAdjacent(matrix, row, col);
+        while (true) {
+            int iteration = 0;
 
-                    System.out.println(matrix[row][col]);
-                    if (count < 4) {
-                        removableScrolls++;
-                        System.out.println("Removable Scrolls: " + removableScrolls);
+            for (int row = 0; row < matrix.length; row++) {
+                for (int col = 0; col < matrix[row].length; col++) {
+                    if (matrix[row][col] == '@') {
+                        int count = checkAdjacent(matrix, row, col);
+
+                        System.out.println(matrix[row][col]);
+                        if (count < 4) {
+                            iteration++;
+                            matrix[row][col] = '.';
+                            System.out.println("Removable Scrolls: " + removableScrolls);
+                        }
                     }
                 }
+            }
+
+            removableScrolls = removableScrolls + iteration;
+            if (iteration == 0) {
+                break;
             }
         }
 
